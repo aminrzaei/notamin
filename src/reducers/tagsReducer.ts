@@ -2,9 +2,12 @@ import { v4 as uuidv4 } from "uuid";
 import { Reducer } from "redux";
 import { CREATE_TAG } from "./actions";
 
-export interface ITag {
-  id: string;
+export interface IRawTag {
   title: string;
+}
+
+export interface ITag extends IRawTag {
+  id: string;
 }
 
 export type TagsState = ITag[];

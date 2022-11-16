@@ -5,13 +5,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../reducers";
 import { CREATE_NOTE } from "../reducers/actions";
 
-import { INote } from "../reducers/notesReducer";
+import { IRawNote } from "../reducers/notesReducer";
 
 const NewNote = () => {
   const tags = useSelector((state: RootState) => state.tags);
   const dispatch = useDispatch();
 
-  const handleCreateNote = (note: INote) => {
+  const handleCreateNote = (note: IRawNote) => {
     dispatch({ type: CREATE_NOTE, payload: note });
   };
 

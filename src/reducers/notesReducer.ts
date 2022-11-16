@@ -2,16 +2,15 @@ import { v4 as uuidv4 } from "uuid";
 import { Reducer } from "redux";
 import { CREATE_NOTE } from "./actions";
 
-export interface ITag {
-  id: string;
-  title: string;
-}
+import { ITag } from "./tagsReducer";
 
-export interface INote {
-  id: string;
+export interface IRawNote {
   title: string;
   body: string;
   tags: ITag[];
+}
+export interface INote extends IRawNote {
+  id: string;
 }
 
 export type NotesState = INote[];

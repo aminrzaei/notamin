@@ -1,31 +1,53 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button, MultiSelect, TextInput } from "@mantine/core";
 import { RichTextEditor } from "@mantine/rte";
 import { useNavigate } from "react-router-dom";
 
-import { ITag } from "../reducers/tagsReducer";
-import { INote } from "../reducers/notesReducer";
+import { IRawTag, ITag } from "../reducers/tagsReducer";
+import { IRawNote } from "../reducers/notesReducer";
 import { CREATE_TAG } from "../reducers/actions";
 
 import { useDispatch } from "react-redux";
 
 interface INoteFormProps {
-  onSubmit: (note: INote) => void;
+  onSubmit: (note: IRawNote) => void;
   tags: ITag[];
 }
 
-const initialValue =
-  "<p>Your initial <b>html value</b> or an empty string to init editor without value</p>";
-
 const NoteForm = ({ onSubmit, tags }: INoteFormProps) => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-  const [data, setData] = useState([
-    { value: "react", label: "React" },
-    { value: "ng", label: "Angular" },
-  ]);
-  const [value, onChange] = useState(initialValue);
+
+  const [noteTitle, setNoteTitle] = useState<string>("");
+  const [multiselectData, setMultiselectData] = useState<ITag[]>([]);
+  const [rteValue, setRteValue] = useState("");
+  const [titleError, setTitleError] = useState<string>("");
+
+  const tagForMultiselect = useMemo(() => {
+    return tags.map((tag) => {
+      return { value: tag.title, label: tag.title };
+    });
+  }, [tags]);
+
+  const onMultiselectChange = (tagTitles: string[]) => {
+    const selectedTags = tags.filter((tag) => {
+      return tagTitles.includes(tag.title);
+    });
+    setMultiselectData(selectedTags);
+  };
+
+  const handleSubmit = () => {
+    if (noteTitle.length < 1) {
+      setTitleError("Title is required!");
+      return;
+    }
+    const newNote: IRawNote = {
+      title: noteTitle,
+      body: rteValue,
+      tags: multiselectData,
+    };
+    onSubmit(newNote);
+  };
 
   return (
     <>
@@ -33,27 +55,28 @@ const NoteForm = ({ onSubmit, tags }: INoteFormProps) => {
         <TextInput
           placeholder="Enter your task title"
           label="Title"
-          error="Title is required!"
+          error={titleError}
+          value={noteTitle}
+          onChange={(e) => setNoteTitle(e.target.value)}
           withAsterisk
         />
         <MultiSelect
           label="Creatable MultiSelect"
-          data={tags.map((tag) => {
-            return { value: tag.title, label: tag.title };
-          })}
+          data={tagForMultiselect}
           placeholder="Select items"
           searchable
           creatable
+          onChange={(value) => onMultiselectChange(value)}
           getCreateLabel={(query) => `+ Create ${query}`}
           onCreate={(query) => {
             const item = { value: query, label: query };
-            const newTag: ITag = { id: query, title: query };
+            const newTag: IRawTag = { title: query };
             dispatch({ type: CREATE_TAG, payload: newTag });
             return item;
           }}
         />
-        <RichTextEditor value={value} onChange={onChange} id="rte" />
-        <Button variant="filled" onClick={() => console.log("submit")}>
+        <RichTextEditor value={rteValue} onChange={setRteValue} id="rte" />
+        <Button variant="filled" onClick={handleSubmit}>
           Save changes
         </Button>
         <Button
