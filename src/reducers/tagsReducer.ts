@@ -1,14 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 import { Reducer } from "redux";
 import { CREATE_TAG } from "./actions";
-
-export interface IRawTag {
+export interface ITag {
   title: string;
-}
-export interface ITag extends IRawTag {
   id: string;
 }
-
 export type TagsState = ITag[];
 
 const getLocalStorageValue = (key: string) => {
@@ -25,11 +21,7 @@ const tagsReducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_TAG:
       const tagDate = action.payload;
-      const newTag: ITag = {
-        id: uuidv4(),
-        title: tagDate.title,
-      };
-      const allNewTags = [...state, newTag];
+      const allNewTags = [...state, tagDate];
       setLocalStorageValue("TAGS", JSON.stringify(allNewTags));
       return allNewTags;
     default:

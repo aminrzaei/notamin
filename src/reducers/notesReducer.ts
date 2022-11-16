@@ -1,15 +1,11 @@
-import { v4 as uuidv4 } from "uuid";
 import { Reducer } from "redux";
-import { CREATE_NOTE } from "./actions";
-
+import { CREATE_NOTE, DELETE_NOTE, EDIT_NOTE } from "./actions";
 import { ITag } from "./tagsReducer";
-
 export interface IRawNote {
   title: string;
   body: string;
   tags: string[];
 }
-
 export interface INote extends IRawNote {
   id: string;
 }
@@ -36,15 +32,24 @@ const notesReducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_NOTE:
       const noteDate = action.payload;
-      const newNote: INote = {
-        id: uuidv4(),
-        title: noteDate.title,
-        body: noteDate.body,
-        tags: noteDate.tags.map((tag: ITag) => tag.id),
-      };
-      const allNewNotes = [...state, newNote];
+      const allNewNotes = [...state, noteDate];
       setLocalStorageValue("NOTES", JSON.stringify(allNewNotes));
       return allNewNotes;
+    case EDIT_NOTE:
+      const editedNoteDate = action.payload;
+      const filterdNotes = state.filter((note: INote) => {
+        return note.id !== editedNoteDate.id;
+      });
+      const allNewEditedNotes = [...filterdNotes, editedNoteDate];
+      setLocalStorageValue("NOTES", JSON.stringify(allNewEditedNotes));
+      return allNewEditedNotes;
+    case DELETE_NOTE:
+      const noteId = action.payload;
+      const otherNotes = state.filter((note: INote) => {
+        return note.id !== noteId;
+      });
+      setLocalStorageValue("NOTES", JSON.stringify(otherNotes));
+      return otherNotes;
     default:
       return state;
   }

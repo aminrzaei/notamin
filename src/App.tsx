@@ -6,6 +6,8 @@ import store from "./store";
 
 import NewNote from "./pages/NewNote";
 import Home from "./pages/Home";
+import ShowNote from "./pages/ShowNote";
+import EditNote from "./pages/EditNote";
 
 import "./App.css";
 
@@ -20,9 +22,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/new" element={<NewNote />} />
-          <Route path="/:id">
-            <Route index element={<h1>Show</h1>} />
-            <Route path="edit" element={<h1>Edit</h1>} />
+          <Route path="/:noteId">
+            <Route index element={<ShowNote />} />
+            <Route path="edit" element={<EditNote />} />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
