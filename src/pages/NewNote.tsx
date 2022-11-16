@@ -7,7 +7,7 @@ import { CREATE_NOTE } from "../reducers/actions";
 
 import { IRawNote } from "../reducers/notesReducer";
 
-const NewNote = () => {
+const NewNote: React.FC = () => {
   const tags = useSelector((state: RootState) => state.tags);
   const dispatch = useDispatch();
 

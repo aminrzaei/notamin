@@ -7,10 +7,17 @@ import { ITag } from "./tagsReducer";
 export interface IRawNote {
   title: string;
   body: string;
-  tags: ITag[];
+  tags: string[];
 }
+
 export interface INote extends IRawNote {
   id: string;
+}
+export interface INoteWithTag {
+  id: string;
+  title: string;
+  body: string;
+  tags: ITag[];
 }
 
 export type NotesState = INote[];

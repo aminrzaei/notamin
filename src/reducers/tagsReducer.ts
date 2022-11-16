@@ -5,7 +5,6 @@ import { CREATE_TAG } from "./actions";
 export interface IRawTag {
   title: string;
 }
-
 export interface ITag extends IRawTag {
   id: string;
 }

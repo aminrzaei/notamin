@@ -1,0 +1,92 @@
+.home__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+.add-note__btn {
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+}
+.notecard__container {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 15px;
+}
+.notecard {
+  cursor: pointer;
+  background-color: #333;
+  border-radius: 5px;
+  padding: 6px 13px;
+  transition: all 0.1s linear;
+  height: 183px;
+}
+.notecard:hover {
+  box-shadow: 3px 4px 0px 0px #099268;
+  transform: translate(-5px, -5px);
+}
+
+.notecard__title {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 5px;
+}
+.notecard__body {
+  position: relative;
+  height: 100px;
+  overflow: hidden;
+  background-color: #1a1b1e;
+  border-radius: 3px;
+  padding: 10px;
+}
+.notecard__body::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 40px;
+  width: 100%;
+  background-image: linear-gradient(transparent, #1a1b1e);
+}
+.notecard__body ul,
+ol {
+  padding-left: 40px;
+}
+.notecard__tag-container {
+  display: flex;
+  margin-top: 8px;
+}
+.notecard__tag {
+  list-style: none;
+  color: white;
+  font-size: 15px;
+  background-color: rgb(66, 99, 235);
+  border-radius: 3px;
+  padding: 0 5px 1px 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+@media only screen and (max-width: 700px) {
+  .home__title {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  .notecard__container {
+    padding: 15px;
+    grid-template-columns: auto auto;
+    gap: 15px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .notecard__container {
+    padding: 10px;
+    grid-template-columns: auto;
+    gap: 15px;
+  }
+}
