@@ -64,13 +64,14 @@ ol {
 .notecard__tag {
   list-style: none;
   color: white;
-  font-size: 15px;
+  font-size: 14px;
   background-color: rgb(50, 81, 205);
   color: white;
   border-radius: 3px;
-  padding: 1px 9px;
+  padding: 3px 9px 5px 9px;
   margin-right: 5px;
-  margin-bottom: 5px;
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 .no-notes {
   display: flex;
@@ -114,10 +115,11 @@ ol {
 }
 .showpage__tag {
   margin-right: 6px;
+  font-size: 15px;
   background-color: rgb(28, 71, 244);
   color: white;
   border-radius: 3px;
-  padding: 1px 9px;
+  padding: 3px 9px 5px 9px;
 }
 .showpage__home-btn {
   position: fixed;
