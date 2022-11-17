@@ -10,10 +10,12 @@ import { Link } from "react-router-dom";
 const Home: React.FC = () => {
   const { notes, tags } = useSelector((state: RootState) => state);
   const notesWithTags = useMemo(() => {
-    return notes.map((note) => {
-      const noteTags = tags.filter((tag) => note.tags.includes(tag.id));
-      return { ...note, tags: noteTags };
-    });
+    return notes
+      .map((note) => {
+        const noteTags = tags.filter((tag) => note.tags.includes(tag.id));
+        return { ...note, tags: noteTags };
+      })
+      .reverse();
   }, [notes, tags]);
 
   const RenderNotes = () => {
