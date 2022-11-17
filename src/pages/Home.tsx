@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../reducers";
-import { Button } from "@mantine/core";
+import { Button, MultiSelect, TextInput } from "@mantine/core";
 
 import NoteCard from "../components/NoteCard";
 import AddIcon from "../assets/icons/AddIcon";
 import { Link } from "react-router-dom";
+import SearchIcon from "../assets/icons/SearchIcon";
 
 const Home: React.FC = () => {
   const { notes, tags } = useSelector((state: RootState) => state);
@@ -17,15 +18,53 @@ const Home: React.FC = () => {
       })
       .reverse();
   }, [notes, tags]);
-
+  const data = [
+    { value: "react", label: "React" },
+    { value: "ng", label: "Angular" },
+    { value: "svelte", label: "Svelte" },
+    { value: "vue", label: "Vue" },
+    { value: "riot", label: "Riot" },
+    { value: "next", label: "Next.js" },
+    { value: "blitz", label: "Blitz.js" },
+  ];
   const RenderNotes = () => {
     if (notesWithTags.length) {
       return (
-        <div className="notecard__container">
-          {notesWithTags.map((note) => (
-            <NoteCard note={note} key={note.id} />
-          ))}
-        </div>
+        <>
+          <div className="nav-container">
+            <TextInput
+              className="nav-container__search"
+              placeholder="Search note title "
+              rightSection={<SearchIcon color="#C1C2C5" />}
+            />
+            <MultiSelect
+              className="nav-container__filter"
+              data={data}
+              placeholder="Tags to see"
+            />
+            <div className="nav-container__btn-container">
+              <Button
+                className="nav-container__btn--notes"
+                variant="light"
+                color="teal"
+              >
+                Manage Notes
+              </Button>
+              <Button
+                className="nav-container__btn--tags"
+                variant="light"
+                color="blue"
+              >
+                Manage Tags
+              </Button>
+            </div>
+          </div>
+          <div className="notecard__container">
+            {notesWithTags.map((note) => (
+              <NoteCard note={note} key={note.id} />
+            ))}
+          </div>
+        </>
       );
     }
     return (
