@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { RootState } from "../reducers";
 import { useNavigate } from "react-router-dom";
-import { Modal, Button, Group } from "@mantine/core";
+import { Modal, Button, ActionIcon } from "@mantine/core";
 import { DELETE_NOTE } from "../reducers/actions";
+import EditIcon from "../assets/icons/EditIcon";
+import DeleteIcon from "../assets/icons/DeleteIcon";
 
 const ShowNote: React.FC = () => {
   const navigate = useNavigate();
@@ -20,23 +22,52 @@ const ShowNote: React.FC = () => {
   }, [notes, tags]);
   return (
     <>
-      <div>
-        <Link to="edit">
-          <Button>Edit</Button>
-        </Link>
-        <Button color="red" onClick={() => setIsModalOpen(true)}>
-          Delete
-        </Button>
-        <h1>{noteWithTags.title}</h1>
-        <p dangerouslySetInnerHTML={{ __html: noteWithTags.body || "" }}></p>
-        <ul>
+      <div className="showpage">
+        <div className="showpage__header">
+          <h1 className="showpage__title">{noteWithTags.title}</h1>
+          <Link to="edit">
+            <ActionIcon
+              mt={10}
+              variant="outline"
+              title="Edit this note"
+              mr={10}
+            >
+              <EditIcon color="white" />
+            </ActionIcon>
+          </Link>
+          <ActionIcon
+            variant="filled"
+            color="red"
+            mt={10}
+            ml="auto"
+            title="Delete this note"
+            onClick={() => setIsModalOpen(true)}
+          >
+            <DeleteIcon color="white" />
+          </ActionIcon>
+        </div>
+        <div
+          className="showpage__body"
+          dangerouslySetInnerHTML={{ __html: noteWithTags.body || "" }}
+        />
+        <ul className="showpage__tag-container">
           {noteWithTags.tags.map((tag) => {
-            return <li key={tag.id}>{tag.title}</li>;
+            return (
+              <li key={tag.id} className="showpage__tag">
+                {tag.title}
+              </li>
+            );
           })}
         </ul>
+        <div className="showpage__home-btn">
+          <Button color="blue" onClick={() => navigate("/", { replace: true })}>
+            Back to Home
+          </Button>
+        </div>
         <Modal
           opened={isModalOpen}
           onClose={() => setIsModalOpen(false)}
+          centered
           title="Are you sure about deleting this note?"
         >
           <Button

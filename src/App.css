@@ -7,8 +7,8 @@
 }
 .add-note__btn {
   position: fixed;
-  bottom: 15px;
-  right: 20px;
+  bottom: 20px;
+  right: 25px;
 }
 .notecard__container {
   padding: 20px;
@@ -22,7 +22,7 @@
   border-radius: 5px;
   padding: 6px 13px;
   transition: all 0.1s linear;
-  height: 183px;
+  min-height: 183px;
 }
 .notecard:hover {
   box-shadow: 3px 4px 0px 0px #099268;
@@ -65,9 +65,10 @@ ol {
   list-style: none;
   color: white;
   font-size: 15px;
-  background-color: rgb(66, 99, 235);
+  background-color: rgb(50, 81, 205);
+  color: white;
   border-radius: 3px;
-  padding: 0 5px 1px 5px;
+  padding: 1px 9px;
   margin-right: 5px;
   margin-bottom: 5px;
 }
@@ -85,6 +86,44 @@ ol {
   color: #099268;
   transform: scale(1.05);
 }
+.showpage {
+  padding: 50px;
+}
+.showpage__header {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+.showpage__title {
+  margin-right: 10px;
+}
+.showpage__body {
+  background-color: #0c0c0c;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 15px 0;
+  min-height: 350px;
+}
+.showpage__body ul,
+ol {
+  margin: 5px 5px 5px 40px;
+}
+.showpage__tag-container {
+  list-style: none;
+  display: flex;
+}
+.showpage__tag {
+  margin-right: 6px;
+  background-color: rgb(28, 71, 244);
+  color: white;
+  border-radius: 3px;
+  padding: 1px 9px;
+}
+.showpage__home-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 25px;
+}
 @media only screen and (max-width: 700px) {
   .home__title {
     margin-top: 15px;
@@ -94,6 +133,13 @@ ol {
     padding: 15px;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
+  }
+  .showpage {
+    padding: 50px 25px;
+  }
+  .showpage__title {
+    font-size: 25px;
+    margin-top: 5px;
   }
 }
 
