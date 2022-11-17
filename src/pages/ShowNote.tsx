@@ -29,10 +29,11 @@ const ShowNote: React.FC = () => {
             <ActionIcon
               mt={10}
               variant="outline"
+              color="indigo"
               title="Edit this note"
               mr={10}
             >
-              <EditIcon color="white" />
+              <EditIcon color="#5c7cfa" />
             </ActionIcon>
           </Link>
           <ActionIcon

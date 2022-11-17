@@ -30,6 +30,7 @@ const EditNote: React.FC = () => {
           onSubmit={handleEditNote}
           tags={tags}
           initialState={noteWithTags}
+          formTitle="Edit note"
         />
       </div>
     </>

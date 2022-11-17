@@ -124,6 +124,18 @@ ol {
   bottom: 20px;
   right: 25px;
 }
+.form-container {
+  margin: 0 auto;
+  max-width: 850px;
+  padding: 20px 50px;
+}
+.form-title {
+  text-align: center;
+}
+.form__btn-container {
+  display: flex;
+  justify-content: right;
+}
 @media only screen and (max-width: 700px) {
   .home__title {
     margin-top: 15px;
@@ -141,6 +153,9 @@ ol {
     font-size: 25px;
     margin-top: 5px;
   }
+  .form-container {
+    padding: 50px 25px;
+  }
 }
 
 @media only screen and (max-width: 450px) {
@@ -148,5 +163,8 @@ ol {
     padding: 10px;
     grid-template-columns: auto;
     gap: 15px;
+  }
+  .form-container {
+    padding: 40px 20px;
   }
 }

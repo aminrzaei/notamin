@@ -16,10 +16,12 @@ const NewNote: React.FC = () => {
   };
 
   return (
-    <>
-      <h1>Create new note</h1>
-      <NoteForm onSubmit={handleCreateNote} tags={tags} />
-    </>
+    <NoteForm
+      onSubmit={handleCreateNote}
+      tags={tags}
+      formTitle="Create new note"
+      initialState={{ id: "", title: "", body: "", tags: [] }}
+    />
   );
 };
 

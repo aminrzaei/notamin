@@ -14,17 +14,14 @@ interface INoteFormProps {
   initialState: any;
   onSubmit: (note: INote) => void;
   tags: ITag[];
+  formTitle: string;
 }
 
 const NoteForm = ({
   onSubmit,
   tags,
-  initialState = {
-    id: "",
-    title: "",
-    body: "",
-    tags: [],
-  },
+  initialState,
+  formTitle,
 }: INoteFormProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,12 +57,14 @@ const NoteForm = ({
 
   return (
     <>
-      <div>
+      <div className="form-container">
+        <h1 className="form-title">{formTitle}</h1>
         <TextInput
           placeholder="Enter your task title"
           label="Title"
           error={titleError}
           value={noteTitle}
+          mb="sm"
           onChange={(e) => setNoteTitle(e.target.value)}
           withAsterisk
         />
@@ -75,6 +74,7 @@ const NoteForm = ({
           placeholder="Select items"
           searchable
           creatable
+          mb="lg"
           value={multiselectValue}
           onChange={setMultiselectValue}
           getCreateLabel={(query) => `+ Create ${query}`}
@@ -87,17 +87,32 @@ const NoteForm = ({
             return item;
           }}
         />
-        <RichTextEditor value={rteValue} onChange={setRteValue} id="rte" />
-        <Button variant="filled" onClick={handleSubmit}>
-          Save changes
-        </Button>
-        <Button
-          variant="light"
-          color="red"
-          onClick={() => navigate("..", { replace: true })}
-        >
-          Cancel
-        </Button>
+        <RichTextEditor
+          controls={[
+            ["bold", "strike", "italic", "underline", "clean"],
+            ["h1", "h2", "h3", "h4", "h5", "h6"],
+            ["sub", "sup", "link"],
+            ["alignLeft", "alignCenter", "alignRight"],
+            ["code", "codeBlock"],
+            ["unorderedList", "orderedList", "blockquote"],
+          ]}
+          mb="lg"
+          value={rteValue}
+          onChange={setRteValue}
+          id="rte"
+        />
+        <div className="form__btn-container">
+          <Button
+            variant="outline"
+            color="red"
+            onClick={() => navigate("..", { replace: true })}
+          >
+            Cancel
+          </Button>
+          <Button ml="xs" variant="filled" color="teal" onClick={handleSubmit}>
+            Save changes
+          </Button>
+        </div>
       </div>
     </>
   );
