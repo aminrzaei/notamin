@@ -97,14 +97,14 @@ const Navbar: React.FC<INavbarProps> = ({ tags, notes, setNotes }) => {
         </div>
       </div>
       <ManageModal
-        modalTitle="Manage Notes"
+        modalTitle="Notes"
         isOpen={isNotesModalOpen}
         setIsOpen={setIsNotesModalOpen}
         items={notes}
         onSave={(changes) => dispatch({ type: EDIT_NOTES, payload: changes })}
       />
       <ManageModal
-        modalTitle="Manage Tags"
+        modalTitle="Tags"
         isOpen={isTagsModalOpen}
         setIsOpen={setIsTagsModalOpen}
         items={tags}

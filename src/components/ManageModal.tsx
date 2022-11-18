@@ -35,7 +35,7 @@ const ManageModal: React.FC<IManageModalProps> = ({
       opened={isOpen}
       onClose={() => setIsOpen(false)}
       centered
-      title={modalTitle}
+      title={`Manage ${modalTitle}`}
     >
       <div className="modal-row-container">
         <div className="modal-header">
@@ -44,9 +44,15 @@ const ManageModal: React.FC<IManageModalProps> = ({
             <DeleteIcon color="#fd676b" />
           </span>
         </div>
-        {items.map((item) => {
-          return <ModalRow key={item.id} item={item} setChanges={setChanges} />;
-        })}
+        {items.length ? (
+          items.map((item) => {
+            return (
+              <ModalRow key={item.id} item={item} setChanges={setChanges} />
+            );
+          })
+        ) : (
+          <div className="modal-body--no-content">No {modalTitle} to show!</div>
+        )}
       </div>
       <div className="modal-btn-container">
         <Button variant="outline" color="red" onClick={() => setIsOpen(false)}>
