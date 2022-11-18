@@ -58,6 +58,7 @@ const ShowNote: React.FC = () => {
       <div className="showpage__body">
         <RichTextEditor
           readOnly
+          mih={200}
           value={noteWithTags.body}
           bg="#0c0c0c"
           py="sm"
