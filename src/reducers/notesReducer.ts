@@ -1,35 +1,16 @@
 import { Reducer } from "redux";
 
 // Types
-import { IChanges, IChangesValue } from "../components/ManageModal";
-import { ITag } from "./tagsReducer";
+import { IChanges, IChangesValue, INote, NotesState } from "../common/types";
 
 // Actions
 import { CREATE_NOTE, DELETE_NOTE, EDIT_NOTE, EDIT_NOTES } from "./actions";
-export interface IRawNote {
-  title: string;
-  body: string;
-  tags: string[];
-}
-export interface INote extends IRawNote {
-  id: string;
-}
-export interface INoteWithTag {
-  id: string;
-  title: string;
-  body: string;
-  tags: ITag[];
-}
 
-export type NotesState = INote[];
-
-const getLocalStorageValue = (key: string) => {
-  const jsonValue = localStorage.getItem(key) || "[]";
-  return JSON.parse(jsonValue);
-};
-
-const setLocalStorageValue = (key: string, value: string): void =>
-  localStorage.setItem(key, value);
+// Utils
+import {
+  getLocalStorageValue,
+  setLocalStorageValue,
+} from "../utils/localStorage";
 
 const initialState: NotesState = getLocalStorageValue("NOTES");
 

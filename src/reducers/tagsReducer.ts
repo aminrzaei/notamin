@@ -1,25 +1,16 @@
 import { Reducer } from "redux";
 
 // Types
-import { IChangesValue } from "../components/ManageModal";
-import { IChanges } from "../components/ManageModal";
+import { IChanges, IChangesValue, ITag, TagsState } from "../common/types";
 
 // Actions
 import { CREATE_TAG, EDIT_TAGS } from "./actions";
 
-export interface ITag {
-  title: string;
-  id: string;
-}
-export type TagsState = ITag[];
-
-const getLocalStorageValue = (key: string) => {
-  const jsonValue = localStorage.getItem(key) || "[]";
-  return JSON.parse(jsonValue);
-};
-
-const setLocalStorageValue = (key: string, value: string): void =>
-  localStorage.setItem(key, value);
+// Utils
+import {
+  getLocalStorageValue,
+  setLocalStorageValue,
+} from "../utils/localStorage";
 
 const initialState: TagsState = getLocalStorageValue("TAGS");
 

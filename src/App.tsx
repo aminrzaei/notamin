@@ -2,16 +2,19 @@ import { MantineProvider } from "@mantine/core";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 
+// Redux Store
 import store from "./store";
 
-import NewNote from "./pages/NewNote";
+// Pages
 import Home from "./pages/Home";
+import NewNote from "./pages/NewNote";
 import ShowNote from "./pages/ShowNote";
 import EditNote from "./pages/EditNote";
 
+// Styles
 import "./App.css";
 
-function App() {
+const App: React.FC = () => {
   return (
     <MantineProvider
       withGlobalStyles
@@ -31,6 +34,6 @@ function App() {
       </Provider>
     </MantineProvider>
   );
-}
+};
 
 export default App;

@@ -4,11 +4,10 @@ import { useDispatch } from "react-redux";
 // Components
 import { Button, MultiSelect, TextInput } from "@mantine/core";
 import ManageModal from "./ManageModal";
-import SearchIcon from "../assets/icons/SearchIcon";
+import SearchIcon from "./icons/SearchIcon";
 
 // Types
-import { INoteWithTag } from "../reducers/notesReducer";
-import { ITag } from "../reducers/tagsReducer";
+import { INoteWithTag, ITag } from "../common/types";
 
 // Actions
 import { EDIT_NOTES, EDIT_TAGS } from "../reducers/actions";
@@ -19,17 +18,19 @@ interface INavbarProps {
   setNotes: React.Dispatch<React.SetStateAction<INoteWithTag[]>>;
 }
 
-const Navbar = ({ tags, notes, setNotes }: INavbarProps) => {
+const Navbar: React.FC<INavbarProps> = ({ tags, notes, setNotes }) => {
   const dispatch = useDispatch();
+
   const [isNotesModalOpen, setIsNotesModalOpen] = useState<boolean>(false);
   const [isTagsModalOpen, setIsTagsModalOpen] = useState<boolean>(false);
+  const [multiselectValue, setMultiselectValue] = useState<string[]>([]);
+  const [searchValue, setSearchValue] = useState<string>("");
+
   const tagForMultiselect = useMemo(() => {
     return tags.map((tag) => {
       return { value: tag.id, label: tag.title };
     });
   }, [tags]);
-  const [multiselectValue, setMultiselectValue] = useState<string[]>([]);
-  const [searchValue, setSearchValue] = useState<string>("");
 
   const handleSearch = (value: string) => {
     const matchNotes = notes.filter((note) => {
@@ -57,6 +58,7 @@ const Navbar = ({ tags, notes, setNotes }: INavbarProps) => {
           className="nav-container__search"
           placeholder="Search note title "
           rightSection={<SearchIcon color="#C1C2C5" />}
+          autoComplete="off"
           value={searchValue}
           onChange={(e) => {
             const searchTerm = e.target.value;
@@ -67,7 +69,7 @@ const Navbar = ({ tags, notes, setNotes }: INavbarProps) => {
         <MultiSelect
           className="nav-container__filter"
           data={tagForMultiselect}
-          placeholder="Tags to see"
+          placeholder="Filter by tags"
           searchable
           value={multiselectValue}
           onChange={(selectedTags) => {

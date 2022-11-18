@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import NoteForm from "../components/NoteForm";
 
 // Types
-import { RootState } from "../reducers";
-import { IRawNote } from "../reducers/notesReducer";
+import { RootState, IRawNote } from "../common/types";
 
 // Actions
 import { CREATE_NOTE } from "../reducers/actions";

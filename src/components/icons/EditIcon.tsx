@@ -1,4 +1,4 @@
-const EditIcon = ({ color }: { color: string }) => {
+const EditIcon: React.FC<{ color: string }> = ({ color }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -6,18 +6,18 @@ import { Link } from "react-router-dom";
 import { Button } from "@mantine/core";
 import Navbar from "../components/Navbar";
 import NoteCard from "../components/NoteCard";
-import AddIcon from "../assets/icons/AddIcon";
+import AddIcon from "../components/icons/AddIcon";
 
 // Types
-import { RootState } from "../reducers";
+import { INote, INoteWithTag, ITag, RootState } from "../common/types";
 
 const Home: React.FC = () => {
   const { notes, tags } = useSelector((state: RootState) => state);
 
   const notesWithTagsData = useMemo(() => {
     return notes
-      .map((note) => {
-        const noteTags = tags.filter((tag) => note.tags.includes(tag.id));
+      .map((note: INote) => {
+        const noteTags = tags.filter((tag: ITag) => note.tags.includes(tag.id));
         return { ...note, tags: noteTags };
       })
       .reverse();
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
     if (notesWithTags.length) {
       return (
         <div className="notecard__container">
-          {notesWithTags.map((note) => (
+          {notesWithTags.map((note: INoteWithTag) => (
             <NoteCard note={note} key={note.id} />
           ))}
         </div>

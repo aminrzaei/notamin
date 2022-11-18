@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
 // Types
-import { INoteWithTag } from "../reducers/notesReducer";
+import { INoteWithTag } from "../common/types";
 
 interface INoteCardProps {
   note: INoteWithTag;
 }
 
-const NoteCard = ({ note }: INoteCardProps) => {
+const NoteCard: React.FC<INoteCardProps> = ({ note }) => {
   return (
     <Link to={`/${note.id}`}>
       <div key={note.id} className="notecard">

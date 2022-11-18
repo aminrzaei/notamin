@@ -3,18 +3,18 @@ import { useState } from "react";
 // Components
 import { Checkbox, TextInput } from "@mantine/core";
 
-// types
-import { INote } from "../reducers/notesReducer";
-import { ITag } from "../reducers/tagsReducer";
-import { IChanges } from "./ManageModal";
+// Types
+import { INote, ITag, IChanges } from "../common/types";
 
 interface IModalRowProps {
   item: INote | ITag;
   setChanges: React.Dispatch<React.SetStateAction<IChanges>>;
 }
-const ModalRow = ({ item, setChanges }: IModalRowProps) => {
+
+const ModalRow: React.FC<IModalRowProps> = ({ item, setChanges }) => {
   const [title, setTitle] = useState<string>(item.title);
   const [isChecked, setIsChecked] = useState<boolean>(false);
+
   return (
     <div className="modal-row">
       <TextInput

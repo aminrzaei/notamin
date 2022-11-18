@@ -8,8 +8,9 @@ import { Button, MultiSelect, TextInput } from "@mantine/core";
 import { RichTextEditor } from "@mantine/rte";
 
 // Types
-import { ITag } from "../reducers/tagsReducer";
-import { INote } from "../reducers/notesReducer";
+import { ITag, INote } from "../common/types";
+
+// Actions
 import { CREATE_TAG } from "../reducers/actions";
 
 interface INoteFormProps {
@@ -19,12 +20,12 @@ interface INoteFormProps {
   formTitle: string;
 }
 
-const NoteForm = ({
+const NoteForm: React.FC<INoteFormProps> = ({
   onSubmit,
   tags,
   initialState,
   formTitle,
-}: INoteFormProps) => {
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -46,7 +47,6 @@ const NoteForm = ({
       setTitleError("Title is required!");
       return;
     }
-
     const newNote: INote = {
       id: initialState.id === "" ? uuidv4() : initialState.id,
       title: noteTitle,
@@ -68,6 +68,7 @@ const NoteForm = ({
           value={noteTitle}
           mb="sm"
           onChange={(e) => setNoteTitle(e.target.value)}
+          autoComplete="off"
           withAsterisk
         />
         <MultiSelect
@@ -98,6 +99,7 @@ const NoteForm = ({
             ["code", "codeBlock"],
             ["unorderedList", "orderedList", "blockquote"],
           ]}
+          bg="#0c0c0c"
           mb="lg"
           value={rteValue}
           onChange={setRteValue}

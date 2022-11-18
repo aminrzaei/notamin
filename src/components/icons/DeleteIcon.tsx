@@ -1,4 +1,4 @@
-const DeleteIcon = ({ color }: { color: string }) => {
+const DeleteIcon: React.FC<{ color: string }> = ({ color }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

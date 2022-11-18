@@ -4,25 +4,31 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 
 // Components
 import { Modal, Button, ActionIcon } from "@mantine/core";
-import EditIcon from "../assets/icons/EditIcon";
-import DeleteIcon from "../assets/icons/DeleteIcon";
+import { RichTextEditor } from "@mantine/rte";
+import EditIcon from "../components/icons/EditIcon";
+import DeleteIcon from "../components/icons/DeleteIcon";
 
 // Types
-import { RootState } from "../reducers";
+import { INote, ITag, RootState } from "../common/types";
+
+// Actions
 import { DELETE_NOTE } from "../reducers/actions";
 
 const ShowNote: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { noteId } = useParams();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { notes, tags } = useSelector((state: RootState) => state);
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const noteWithTags = useMemo(() => {
-    const note = notes.find((note) => note.id === noteId);
+    const note = notes.find((note: INote) => note.id === noteId);
     if (note === undefined) navigate("/", { replace: true });
-    const noteTags = tags.filter((tag) => note?.tags.includes(tag.id));
+    const noteTags = tags.filter((tag: ITag) => note?.tags.includes(tag.id));
     return { ...note, tags: noteTags };
   }, [notes, tags]);
+
   return (
     <div className="showpage">
       <div className="showpage__header">
@@ -49,12 +55,17 @@ const ShowNote: React.FC = () => {
           <DeleteIcon color="white" />
         </ActionIcon>
       </div>
-      <div
-        className="showpage__body"
-        dangerouslySetInnerHTML={{ __html: noteWithTags.body || "" }}
-      />
+      <div className="showpage__body">
+        <RichTextEditor
+          readOnly
+          value={noteWithTags.body}
+          bg="#0c0c0c"
+          py="sm"
+          px="md"
+        />
+      </div>
       <ul className="showpage__tag-container">
-        {noteWithTags.tags.map((tag) => {
+        {noteWithTags.tags.map((tag: ITag) => {
           return (
             <li key={tag.id} className="showpage__tag">
               {tag.title}

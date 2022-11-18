@@ -1,4 +1,4 @@
-const SearchIcon = ({ color }: { color: string }) => {
+const SearchIcon: React.FC<{ color: string }> = ({ color }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

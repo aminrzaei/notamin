@@ -6,8 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import NoteForm from "../components/NoteForm";
 
 // Types
-import { RootState } from "../reducers";
-import { IRawNote } from "../reducers/notesReducer";
+import { RootState, IRawNote } from "../common/types";
 
 // Actions
 import { EDIT_NOTE } from "../reducers/actions";
@@ -17,6 +16,7 @@ const EditNote: React.FC = () => {
   const dispatch = useDispatch();
   const { noteId } = useParams();
   const { notes, tags } = useSelector((state: RootState) => state);
+
   const noteWithTags = useMemo(() => {
     const note = notes.find((note) => note.id === noteId);
     if (note === undefined) navigate("/", { replace: true });

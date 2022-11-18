@@ -3,13 +3,12 @@ import { useState } from "react";
 // Components
 import { Button, Modal } from "@mantine/core";
 import ModalRow from "./ModalRow";
-import DeleteIcon from "../assets/icons/DeleteIcon";
+import DeleteIcon from "./icons/DeleteIcon";
 
 // Types
-import { NotesState } from "../reducers/notesReducer";
-import { TagsState } from "../reducers/tagsReducer";
+import { NotesState, TagsState, IChanges } from "../common/types";
 
-interface ManageModalProps {
+interface IManageModalProps {
   modalTitle: string;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,22 +16,13 @@ interface ManageModalProps {
   onSave: (changes: IChanges) => void;
 }
 
-export interface IChangesValue {
-  newTitle: string;
-  doDelete: boolean;
-}
-
-export interface IChanges {
-  [id: string]: IChangesValue;
-}
-
-const ManageModal = ({
+const ManageModal: React.FC<IManageModalProps> = ({
   modalTitle,
   isOpen,
   setIsOpen,
   items,
   onSave,
-}: ManageModalProps) => {
+}) => {
   const [changes, setChanges] = useState<IChanges>({});
 
   const handleSave = (): void => {
