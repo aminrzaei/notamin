@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+// Types
 import notesReducer, { NotesState } from "./notesReducer";
 import tagsReducer, { TagsState } from "./tagsReducer";
 

@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+
+// Types
 import { INoteWithTag } from "../reducers/notesReducer";
 
 interface INoteCardProps {

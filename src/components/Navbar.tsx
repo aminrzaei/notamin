@@ -1,11 +1,16 @@
 import { useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+
+// Components
 import { Button, MultiSelect, TextInput } from "@mantine/core";
+import ManageModal from "./ManageModal";
 import SearchIcon from "../assets/icons/SearchIcon";
+
+// Types
 import { INoteWithTag } from "../reducers/notesReducer";
 import { ITag } from "../reducers/tagsReducer";
 
-import ManageModal from "./ManageModal";
-import { useDispatch } from "react-redux";
+// Actions
 import { EDIT_NOTES, EDIT_TAGS } from "../reducers/actions";
 
 interface INavbarProps {

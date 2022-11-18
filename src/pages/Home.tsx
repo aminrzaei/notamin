@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../reducers";
-import { Button } from "@mantine/core";
 
+// Components
+import { Link } from "react-router-dom";
+import { Button } from "@mantine/core";
+import Navbar from "../components/Navbar";
 import NoteCard from "../components/NoteCard";
 import AddIcon from "../assets/icons/AddIcon";
-import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
+
+// Types
+import { RootState } from "../reducers";
 
 const Home: React.FC = () => {
   const { notes, tags } = useSelector((state: RootState) => state);

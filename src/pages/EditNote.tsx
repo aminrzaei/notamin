@@ -1,10 +1,15 @@
 import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { RootState } from "../reducers";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
+// Components
 import NoteForm from "../components/NoteForm";
+
+// Types
+import { RootState } from "../reducers";
 import { IRawNote } from "../reducers/notesReducer";
+
+// Actions
 import { EDIT_NOTE } from "../reducers/actions";
 
 const EditNote: React.FC = () => {

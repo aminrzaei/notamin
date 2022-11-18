@@ -1,11 +1,14 @@
-import NoteForm from "../components/NoteForm";
-
 import { useSelector, useDispatch } from "react-redux";
 
-import { RootState } from "../reducers";
-import { CREATE_NOTE } from "../reducers/actions";
+// Componets
+import NoteForm from "../components/NoteForm";
 
+// Types
+import { RootState } from "../reducers";
 import { IRawNote } from "../reducers/notesReducer";
+
+// Actions
+import { CREATE_NOTE } from "../reducers/actions";
 
 const NewNote: React.FC = () => {
   const tags = useSelector((state: RootState) => state.tags);

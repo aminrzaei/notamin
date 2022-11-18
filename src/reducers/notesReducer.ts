@@ -1,7 +1,11 @@
 import { Reducer } from "redux";
+
+// Types
 import { IChanges, IChangesValue } from "../components/ManageModal";
-import { CREATE_NOTE, DELETE_NOTE, EDIT_NOTE, EDIT_NOTES } from "./actions";
 import { ITag } from "./tagsReducer";
+
+// Actions
+import { CREATE_NOTE, DELETE_NOTE, EDIT_NOTE, EDIT_NOTES } from "./actions";
 export interface IRawNote {
   title: string;
   body: string;

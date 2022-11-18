@@ -1,14 +1,16 @@
 import { useMemo, useState } from "react";
-import { Button, MultiSelect, TextInput } from "@mantine/core";
-import { RichTextEditor } from "@mantine/rte";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
+// Components
+import { Button, MultiSelect, TextInput } from "@mantine/core";
+import { RichTextEditor } from "@mantine/rte";
+
+// Types
 import { ITag } from "../reducers/tagsReducer";
 import { INote } from "../reducers/notesReducer";
 import { CREATE_TAG } from "../reducers/actions";
-
-import { useDispatch } from "react-redux";
 
 interface INoteFormProps {
   initialState: any;

@@ -1,12 +1,15 @@
 import { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { RootState } from "../reducers";
-import { useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+
+// Components
 import { Modal, Button, ActionIcon } from "@mantine/core";
-import { DELETE_NOTE } from "../reducers/actions";
 import EditIcon from "../assets/icons/EditIcon";
 import DeleteIcon from "../assets/icons/DeleteIcon";
+
+// Types
+import { RootState } from "../reducers";
+import { DELETE_NOTE } from "../reducers/actions";
 
 const ShowNote: React.FC = () => {
   const navigate = useNavigate();

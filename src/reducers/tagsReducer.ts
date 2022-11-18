@@ -1,7 +1,12 @@
 import { Reducer } from "redux";
+
+// Types
 import { IChangesValue } from "../components/ManageModal";
-import { IChanges } from "../components/TagsManageModal";
+import { IChanges } from "../components/ManageModal";
+
+// Actions
 import { CREATE_TAG, EDIT_TAGS } from "./actions";
+
 export interface ITag {
   title: string;
   id: string;

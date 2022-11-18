@@ -1,8 +1,13 @@
-import { Button, TextInput, Modal, Checkbox } from "@mantine/core";
 import { useState } from "react";
+
+// Components
+import { Button, Modal } from "@mantine/core";
+import ModalRow from "./ModalRow";
 import DeleteIcon from "../assets/icons/DeleteIcon";
-import { INote, NotesState } from "../reducers/notesReducer";
-import { ITag, TagsState } from "../reducers/tagsReducer";
+
+// Types
+import { NotesState } from "../reducers/notesReducer";
+import { TagsState } from "../reducers/tagsReducer";
 
 interface ManageModalProps {
   modalTitle: string;
@@ -10,11 +15,6 @@ interface ManageModalProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   items: NotesState | TagsState;
   onSave: (changes: IChanges) => void;
-}
-
-interface IRenderRowProps {
-  item: INote | ITag;
-  setChanges: React.Dispatch<React.SetStateAction<IChanges>>;
 }
 
 export interface IChangesValue {
@@ -25,46 +25,6 @@ export interface IChangesValue {
 export interface IChanges {
   [id: string]: IChangesValue;
 }
-
-const RenderRow = ({ item, setChanges }: IRenderRowProps) => {
-  const [title, setTitle] = useState<string>(item.title);
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-  return (
-    <div className="modal-row">
-      <TextInput
-        value={title}
-        onChange={(e) => {
-          const newTitle = e.target.value;
-          setTitle(newTitle);
-          setChanges((prev) => {
-            return {
-              ...prev,
-              [item.id]: { newTitle, doDelete: isChecked },
-            };
-          });
-        }}
-        className="modal-row__input"
-      />
-      <Checkbox
-        checked={isChecked}
-        radius="xl"
-        size="md"
-        color="red"
-        onChange={(e) => {
-          const doDelete = e.currentTarget.checked;
-          setIsChecked(doDelete);
-          setChanges((prev) => {
-            return {
-              ...prev,
-              [item.id]: { newTitle: title, doDelete },
-            };
-          });
-        }}
-        className="modal-row__checkbox"
-      />
-    </div>
-  );
-};
 
 const ManageModal = ({
   modalTitle,
@@ -95,9 +55,7 @@ const ManageModal = ({
           </span>
         </div>
         {items.map((item) => {
-          return (
-            <RenderRow key={item.id} item={item} setChanges={setChanges} />
-          );
+          return <ModalRow key={item.id} item={item} setChanges={setChanges} />;
         })}
       </div>
       <div className="modal-btn-container">
