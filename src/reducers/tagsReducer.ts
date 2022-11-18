@@ -1,6 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
 import { Reducer } from "redux";
-import { CREATE_TAG } from "./actions";
+import { IChangesValue } from "../components/ManageModal";
+import { IChanges } from "../components/TagsManageModal";
+import { CREATE_TAG, EDIT_TAGS } from "./actions";
 export interface ITag {
   title: string;
   id: string;
@@ -24,6 +25,24 @@ const tagsReducer: Reducer = (state = initialState, action) => {
       const allNewTags = [...state, tagDate];
       setLocalStorageValue("TAGS", JSON.stringify(allNewTags));
       return allNewTags;
+    case EDIT_TAGS:
+      const changes: IChanges = action.payload;
+      const toDeleteTagsIds = Object.entries(changes)
+        .filter(
+          ([id, value]: [string, IChangesValue]) => value.doDelete === true
+        )
+        .map(([id, value]) => id);
+      const renamedTags = state.map((tag: ITag) => {
+        if (changes[tag.id]) {
+          return { ...tag, title: changes[tag.id].newTitle };
+        }
+        return tag;
+      });
+      const editedTags = renamedTags.filter(
+        (tag: ITag) => !toDeleteTagsIds.includes(tag.id)
+      );
+      setLocalStorageValue("TAGS", JSON.stringify(editedTags));
+      return editedTags;
     default:
       return state;
   }

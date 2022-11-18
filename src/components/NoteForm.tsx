@@ -77,7 +77,7 @@ const NoteForm = ({
           mb="lg"
           value={multiselectValue}
           onChange={setMultiselectValue}
-          getCreateLabel={(query) => `+ Create ${query}`}
+          getCreateLabel={(query) => `+ Add ${query}`}
           onCreate={(query) => {
             const tagId = uuidv4();
             const item = { value: tagId, label: query };

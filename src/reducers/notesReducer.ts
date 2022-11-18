@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
-import { CREATE_NOTE, DELETE_NOTE, EDIT_NOTE } from "./actions";
+import { IChanges, IChangesValue } from "../components/ManageModal";
+import { CREATE_NOTE, DELETE_NOTE, EDIT_NOTE, EDIT_NOTES } from "./actions";
 import { ITag } from "./tagsReducer";
 export interface IRawNote {
   title: string;
@@ -50,6 +51,24 @@ const notesReducer: Reducer = (state = initialState, action) => {
       });
       setLocalStorageValue("NOTES", JSON.stringify(otherNotes));
       return otherNotes;
+    case EDIT_NOTES:
+      const changes: IChanges = action.payload;
+      const toDeleteNotesIds = Object.entries(changes)
+        .filter(
+          ([id, value]: [string, IChangesValue]) => value.doDelete === true
+        )
+        .map(([id, value]) => id);
+      const renamedNotes = state.map((note: INote) => {
+        if (changes[note.id]) {
+          return { ...note, title: changes[note.id].newTitle };
+        }
+        return note;
+      });
+      const editedNotes = renamedNotes.filter(
+        (note: INote) => !toDeleteNotesIds.includes(note.id)
+      );
+      setLocalStorageValue("NOTES", JSON.stringify(editedNotes));
+      return editedNotes;
     default:
       return state;
   }

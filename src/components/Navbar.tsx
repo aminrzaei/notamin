@@ -1,8 +1,12 @@
 import { useMemo, useState } from "react";
-import { Button, MultiSelect, TextInput, Modal } from "@mantine/core";
+import { Button, MultiSelect, TextInput } from "@mantine/core";
 import SearchIcon from "../assets/icons/SearchIcon";
 import { INoteWithTag } from "../reducers/notesReducer";
 import { ITag } from "../reducers/tagsReducer";
+
+import ManageModal from "./ManageModal";
+import { useDispatch } from "react-redux";
+import { EDIT_NOTES, EDIT_TAGS } from "../reducers/actions";
 
 interface INavbarProps {
   tags: ITag[];
@@ -11,6 +15,7 @@ interface INavbarProps {
 }
 
 const Navbar = ({ tags, notes, setNotes }: INavbarProps) => {
+  const dispatch = useDispatch();
   const [isNotesModalOpen, setIsNotesModalOpen] = useState<boolean>(false);
   const [isTagsModalOpen, setIsTagsModalOpen] = useState<boolean>(false);
   const tagForMultiselect = useMemo(() => {
@@ -50,7 +55,6 @@ const Navbar = ({ tags, notes, setNotes }: INavbarProps) => {
           value={searchValue}
           onChange={(e) => {
             const searchTerm = e.target.value;
-            console.log(searchTerm);
             setSearchValue(searchTerm);
             handleSearch(searchTerm);
           }}
@@ -85,22 +89,20 @@ const Navbar = ({ tags, notes, setNotes }: INavbarProps) => {
           </Button>
         </div>
       </div>
-      <Modal
-        opened={isTagsModalOpen}
-        onClose={() => setIsTagsModalOpen(false)}
-        centered
-        title="Tags"
-      >
-        Tags
-      </Modal>
-      <Modal
-        opened={isNotesModalOpen}
-        onClose={() => setIsNotesModalOpen(false)}
-        centered
-        title="Notes"
-      >
-        Notes
-      </Modal>
+      <ManageModal
+        modalTitle="Manage Notes"
+        isOpen={isNotesModalOpen}
+        setIsOpen={setIsNotesModalOpen}
+        items={notes}
+        onSave={(changes) => dispatch({ type: EDIT_NOTES, payload: changes })}
+      />
+      <ManageModal
+        modalTitle="Manage Tags"
+        isOpen={isTagsModalOpen}
+        setIsOpen={setIsTagsModalOpen}
+        items={tags}
+        onSave={(changes) => dispatch({ type: EDIT_TAGS, payload: changes })}
+      />
     </>
   );
 };

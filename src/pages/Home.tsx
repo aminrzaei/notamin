@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../reducers";
 import { Button } from "@mantine/core";
@@ -10,6 +10,7 @@ import Navbar from "../components/Navbar";
 
 const Home: React.FC = () => {
   const { notes, tags } = useSelector((state: RootState) => state);
+
   const notesWithTagsData = useMemo(() => {
     return notes
       .map((note) => {
@@ -18,7 +19,13 @@ const Home: React.FC = () => {
       })
       .reverse();
   }, [notes, tags]);
+
   const [notesWithTags, setNotesWithTags] = useState(notesWithTagsData);
+
+  useEffect(() => {
+    setNotesWithTags(notesWithTagsData);
+  }, [notesWithTagsData]);
+
   const RenderNotes = () => {
     if (notesWithTags.length) {
       return (
