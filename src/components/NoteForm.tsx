@@ -72,7 +72,7 @@ const NoteForm: React.FC<INoteFormProps> = ({
           withAsterisk
         />
         <MultiSelect
-          label="Creatable MultiSelect"
+          label="Create or add Tags"
           data={tagForMultiselect}
           placeholder="Select items"
           searchable
